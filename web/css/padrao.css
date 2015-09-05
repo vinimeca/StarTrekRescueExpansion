@@ -1,0 +1,23 @@
+.fundo{
+    background-image: url(../img/back.jpg);
+}
+.titulo{
+    color: #fff;
+    font-size: 25px;
+}
+.texto{
+    color: #fff;
+    font-size: 20px;
+}
+.texto-padrao{
+    color: #fff;
+    font-size: 18px;
+}
+.panel{
+    border: 0px;
+    background-color: transparent;
+    width: 500px;
+}
+.tabela{
+    border: 0px;
+}
