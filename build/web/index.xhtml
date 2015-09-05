@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Star Trek Rescue Expansion Pack</title>
+    </h:head>    
+    <h:body onload="#{StarTrekRescueExpansion.startSearch()}">
+        <center>
+            <h1>Bem vindo ao Star Trek Rescue Expansion Pack!</h1>            
+            <h2>Encontre os #{StarTrekRescueExpansion.num_tripulantes} tripulantes perdidos...</h2>            
+            <h:form id="formPlaneta"> 
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <p:outputLabel for="dificuldade" value="Dificuldade:" />
+                    <p:selectOneMenu id="dificuldade" value="#{StarTrekRescueExpansion.dificuldadeSelected}" style="width:125px">
+                        <f:selectItem itemLabel="F&aacute;cil" itemValue="0" />
+                        <f:selectItem itemLabel="Dif&iacute;cil" itemValue="1" />
+                    </p:selectOneMenu>                    
+                </h:panelGrid>
+                <p:commandButton value="Reiniciar" update="formPlaneta" oncomplete="#{StarTrekRescueExpansion.startSearch()}" />
+                <br/>
+                <c:forEach var="tripulante" begin="0" end="#{StarTrekRescueExpansion.num_tripulantes - 1}">
+                    Tripulante ${tripulante+1} = #{StarTrekRescueExpansion.tripulantes[tripulante][0]} /  #{StarTrekRescueExpansion.tripulantes[tripulante][1]}<br/>
+                </c:forEach>
+                <p:panel id="panelPlaneta" style="border:0px;">
+                    <p:dialog header="Fim da busca!" widgetVar="dialogFim" modal="true" height="100">
+                        <h:outputText value="Parab&eacute;ns! Voc&ecirc; encontrou todos os tripulantes com #{StarTrekRescueExpansion.tentativas} sinalizadores!" />
+                    </p:dialog>
+                    <table border="1" cellpadding="0" cellspacing="1">                    
+                        <c:forEach var="linha" begin="0" end="#{StarTrekRescueExpansion.linhas - 1}">                        
+                            <tr>
+                                <c:forEach var="coluna" begin="0" end="#{StarTrekRescueExpansion.colunas - 1}">
+                                    <td width="50" height="50" align="center">
+                                        ${linha} / ${coluna} <br/>
+                                        <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == -1}">                                            
+                                            <p:commandLink action="#{StarTrekRescueExpansion.searchTripulantes(linha, coluna)}" update="panelPlaneta">
+                                                <h:graphicImage value="/img/agua.gif" width="50" height="50" title="${linha} / ${coluna}"/>
+                                            </p:commandLink>                                            
+                                        </c:if>                                                                            
+                                        <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 0}">
+                                            <p:commandLink>
+                                                <h:graphicImage value="/img/none.png" width="50" height="50" title="${linha} / ${coluna}"/>
+                                            </p:commandLink>                                            
+                                        </c:if>
+                                        <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 3}">
+                                            <p:commandLink>
+                                                <h:graphicImage value="/img/none.png" width="50" height="50" title="${linha} / ${coluna}"/>
+                                            </p:commandLink>                                            
+                                        </c:if>
+                                        <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 1}">
+                                            <p:commandLink>
+                                                <h:graphicImage value="/img/soldado.png" width="50" height="50" title="${linha} / ${coluna}"/>
+                                            </p:commandLink>                                            
+                                        </c:if>                                        
+                                        <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 2}">
+                                            <p:commandLink action="#{StarTrekRescueExpansion.searchTripulantes(linha, coluna)}" update="panelPlaneta">
+                                                <h:graphicImage value="/img/warning.png" width="50" height="50" title="${linha} / ${coluna}"/>
+                                            </p:commandLink>                                            
+                                        </c:if>
+                                    </td>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>                         
+                    </table>                    
+                    Voc&ecirc; encontrou #{StarTrekRescueExpansion.acertos} tripulantes com ${StarTrekRescueExpansion.tentativas} sinalizadores.
+                </p:panel>                
+            </h:form>
+        </center>
+    </h:body>
+</html>
+
