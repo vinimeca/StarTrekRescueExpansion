@@ -34,27 +34,27 @@
                                     <td width="40" height="40" align="center">                                        
                                         <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == -1}">                                            
                                             <p:commandLink action="#{StarTrekRescueExpansion.searchTripulantes(linha, coluna)}" update="panelPlaneta">
-                                                <h:graphicImage value="/img/agua.gif" width="40" height="40" class="imagem" />
+                                                <h:graphicImage value="/img/agua.gif" class="imagem" />
                                             </p:commandLink>                                            
                                         </c:if>                                                                            
                                         <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 0}">
                                             <p:commandLink>
-                                                <h:graphicImage value="/img/none.png" width="40" height="40" />
+                                                <h:graphicImage value="/img/none.png" class="imagem-padrao" />
                                             </p:commandLink>                                            
                                         </c:if>
                                         <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 3}">
                                             <p:commandLink>
-                                                <h:graphicImage value="/img/none.png" width="40" height="40" />
+                                                <h:graphicImage value="/img/none.png" class="imagem-padrao" />
                                             </p:commandLink>                                            
                                         </c:if>
                                         <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 1}">
                                             <p:commandLink>
-                                                <h:graphicImage value="/img/soldado.png" width="40" height="40" />
+                                                <h:graphicImage value="/img/soldado.png" class="imagem-padrao" />
                                             </p:commandLink>                                            
                                         </c:if>                                        
                                         <c:if test="#{StarTrekRescueExpansion.planeta[linha][coluna] == 2}">
                                             <p:commandLink action="#{StarTrekRescueExpansion.searchTripulantes(linha, coluna)}" update="panelPlaneta">
-                                                <h:graphicImage value="/img/warning.png" width="40" height="40" />
+                                                <h:graphicImage value="/img/warning.png" class="imagem-padrao" />
                                             </p:commandLink>                                            
                                         </c:if>
                                     </td>
