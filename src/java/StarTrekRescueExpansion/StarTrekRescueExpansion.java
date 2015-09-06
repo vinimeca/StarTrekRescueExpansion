@@ -18,12 +18,12 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
     public int linhas = 10;
     public int colunas = 10;
     public Integer num_tripulantes = 3;
-    public int[] acertou = new int[num_tripulantes]; //Vetor que grava o que ja acertou
-    public int[] adjacente = new int[2]; //Vetor que salva adjacente;
+    public int[] acertou = new int[num_tripulantes]; 
+    public int[] adjacente = new int[2]; 
 
-    public int[][] planeta = new int[colunas][linhas]; //Matriz planeta
-    public int[][] tripulantes = new int[num_tripulantes][2]; //Matriz tripulantes
-    public int[] sinalizador = new int[2]; //Vetor sinalizador
+    public int[][] planeta = new int[colunas][linhas]; 
+    public int[][] tripulantes = new int[num_tripulantes][2]; 
+    public int[] sinalizador = new int[2]; 
     public int tentativas;
     public int acertos;
 
@@ -33,7 +33,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
 
         init();
         initPlaneta(getPlaneta());
-        initTripulantes(getTripulantes());
+        initTripulantes(getTripulantes());          
 
     }
 
@@ -42,12 +42,12 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
     public void init() {
 
         setTentativas(0);
-        setAcertos(0);
+        setAcertos(0);        
 
     }
-    //Fim Metodo para iniciar do zero tentativas e acertos
-
-    //MEtodo Realiza busca enquanto nao encontrar todos os tripulantes perdidos
+    //Fim Metodo para iniciar do zero tentativas e acertos    
+    
+    //Metodo Realiza busca enquanto nao encontrar todos os tripulantes perdidos
     public void searchTripulantes(int linha, int coluna) {
 
         int[] sinalizador_ = {linha, coluna};
@@ -81,19 +81,17 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
                 setAdjascentes(sinalizador_, getPlaneta(), 0);
             }
         }
-
-        tentativas++;
-
+        tentativas++;  
     }
     //Fim metodo realiza busca enquanto nao encontrar todos os tripulantes perdidos
 
     //Metodo para iniciar planeta
-    public void initPlaneta(int[][] planeta) {
+    public void initPlaneta(int[][] planeta) {        
         for (int linha = 0; linha < getColunas(); linha++) {
             for (int coluna = 0; coluna < getColunas(); coluna++) {
                 planeta[linha][coluna] = -1;
             }
-        }
+        }                   
     }
     //Fim metodo para iniciar planeta    
 
@@ -105,9 +103,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
         for (int i = 0; i < getNum_tripulantes(); i++) {
             tripulantes[i][0] = sorteio.nextInt(getLinhas());
             tripulantes[i][1] = sorteio.nextInt(getColunas());
-
-            //tripulantes[i][0] = 4;
-            //tripulantes[i][1] = 0;
+            
             getAcertou()[i] = 0;
 
             //Não deixa sortear um tripulantes na mesma posíção duas vezes
@@ -118,10 +114,8 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
                         tripulantes[i][1] = sorteio.nextInt(getColunas());
                     } while ((tripulantes[i][0] == tripulantes[antes][0]) && (tripulantes[i][1] == tripulantes[antes][1]));
                 }
-            }
-            //Fim Não deixa sortear um tripulantes na mesma posíção duas vezes            
-        }
-        //Fim Sorteia as posices dos tripulantes
+            }            
+        }        
     }
     //Fim Metodo para iniciar tripulantes
 
