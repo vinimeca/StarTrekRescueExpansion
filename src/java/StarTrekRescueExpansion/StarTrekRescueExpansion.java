@@ -1,6 +1,9 @@
 package StarTrekRescueExpansion;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Random;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -18,12 +21,12 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
     public int linhas = 10;
     public int colunas = 10;
     public Integer num_tripulantes = 3;
-    public int[] acertou = new int[num_tripulantes]; 
-    public int[] adjacente = new int[2]; 
+    public int[] acertou = new int[num_tripulantes];
+    public int[] adjacente = new int[2];
 
-    public int[][] planeta = new int[colunas][linhas]; 
-    public int[][] tripulantes = new int[num_tripulantes][2]; 
-    public int[] sinalizador = new int[2]; 
+    public int[][] planeta = new int[colunas][linhas];
+    public int[][] tripulantes = new int[num_tripulantes][2];
+    public int[] sinalizador = new int[2];
     public int tentativas;
     public int acertos;
 
@@ -33,7 +36,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
 
         init();
         initPlaneta(getPlaneta());
-        initTripulantes(getTripulantes());          
+        initTripulantes(getTripulantes());
 
     }
 
@@ -42,13 +45,22 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
     public void init() {
 
         setTentativas(0);
-        setAcertos(0);        
+        setAcertos(0);
 
     }
     //Fim Metodo para iniciar do zero tentativas e acertos    
+
+    //Metodo para tocar som
+    public void playSound(String nomeArquivo){
+        URL url = getClass().getResource(nomeArquivo+".wav");
+        AudioClip audio = Applet.newAudioClip(url);
+        audio.play();
+    }
     
     //Metodo Realiza busca enquanto nao encontrar todos os tripulantes perdidos
     public void searchTripulantes(int linha, int coluna) {
+       
+        playSound("sinalizador");
 
         int[] sinalizador_ = {linha, coluna};
 
@@ -56,42 +68,48 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
             if (acertou(sinalizador_, getTripulantes())) {
                 planeta[linha][coluna] = 1;
                 acertos++;
+                playSound("encontrado");
                 if (getAcertos() == 3) {
                     RequestContext.getCurrentInstance().execute("PF('dialogFim').show()");
+                    playSound("win");
                 }
             } else if (verificaAdjacentesEasy(sinalizador_, getTripulantes(), getPlaneta())) {
                 planeta[linha][coluna] = 2;
                 setAdjascentesEasy(sinalizador_, getPlaneta(), 2);
-            } else {                
-                planeta[linha][coluna] = 0;                
-                setAdjascentes(sinalizador_, getPlaneta(), 0);                
+                playSound("alerta");
+            } else {
+                planeta[linha][coluna] = 0;
+                setAdjascentes(sinalizador_, getPlaneta(), 0);
             }
         } else {
             if (acertou(sinalizador_, getTripulantes())) {
                 planeta[linha][coluna] = 1;
                 acertos++;
+                playSound("encontrado");
                 if (getAcertos() == 3) {
                     RequestContext.getCurrentInstance().execute("PF('dialogFim').show()");
+                    playSound("win");
                 }
             } else if (verificaAdjacentes(sinalizador_, getTripulantes(), getPlaneta())) {
                 planeta[linha][coluna] = 2;
                 setAdjascentes(sinalizador_, getPlaneta(), 2);
+                playSound("alerta");
             } else {
                 planeta[linha][coluna] = 0;
                 setAdjascentes(sinalizador_, getPlaneta(), 0);
             }
         }
-        tentativas++;  
+        tentativas++;
     }
     //Fim metodo realiza busca enquanto nao encontrar todos os tripulantes perdidos
 
     //Metodo para iniciar planeta
-    public void initPlaneta(int[][] planeta) {        
+    public void initPlaneta(int[][] planeta) {
         for (int linha = 0; linha < getColunas(); linha++) {
             for (int coluna = 0; coluna < getColunas(); coluna++) {
                 planeta[linha][coluna] = -1;
             }
-        }                   
+        }
     }
     //Fim metodo para iniciar planeta    
 
@@ -103,7 +121,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
         for (int i = 0; i < getNum_tripulantes(); i++) {
             tripulantes[i][0] = sorteio.nextInt(getLinhas());
             tripulantes[i][1] = sorteio.nextInt(getColunas());
-            
+
             getAcertou()[i] = 0;
 
             //Não deixa sortear um tripulantes na mesma posíção duas vezes
@@ -114,8 +132,8 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
                         tripulantes[i][1] = sorteio.nextInt(getColunas());
                     } while ((tripulantes[i][0] == tripulantes[antes][0]) && (tripulantes[i][1] == tripulantes[antes][1]));
                 }
-            }            
-        }        
+            }
+        }
     }
     //Fim Metodo para iniciar tripulantes
 
@@ -345,7 +363,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
 
         //6
         if (linha == 0 && coluna == 0) {
-            
+
             if (planeta[linha][coluna + 1] != 1) {
                 planeta[linha][coluna + 1] = type;
             }
@@ -354,7 +372,7 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
             }
             if (planeta[linha + 1][coluna] != 1) {
                 planeta[linha + 1][coluna] = type;
-            }            
+            }
         }
         //7
         if (linha == linhas - 1 && coluna == 0) {
@@ -1138,6 +1156,5 @@ public class StarTrekRescueExpansion extends HttpServlet implements Serializable
     public void setDificuldadeSelected(int dificuldadeSelected) {
         this.dificuldadeSelected = dificuldadeSelected;
     }
-    
 
 }
