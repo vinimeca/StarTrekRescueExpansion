@@ -7,12 +7,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <link type="text/css" rel="stylesheet" 
-              href="/StarTrekRescueExpansion/css/padrao.css" />
+              href="/StarTrekRescueExpansion/css/padrao.css" />        
         <title>Star Trek Rescue Expansion Pack</title>
-        
+
     </h:head>    
     <h:body onload="#{StarTrekRescueExpansion.startSearch()}" class="fundo">
-        <center>
+        <center> 
             <h1 class="titulo">Bem vindo ao Star Trek Rescue Expansion Pack!</h1>            
             <h2 class="texto">Encontre os #{StarTrekRescueExpansion.num_tripulantes} tripulantes perdidos...</h2>            
             <h:form id="formPlaneta"> 
@@ -31,15 +31,15 @@
                     </p:dialog>
                     <p:dialog header="Como jogar..." widgetVar="dialogComoJogar" modal="true" height="500" width="1000">
                         Bem vindo ao Star Trek Rescue Expansion Pack! <br/><br/>
-                        1 - Primeiramente escolha a dificuldade que deseja jogar, f&aacute;cil ou dif&iacute;cil. <br/>
-                        Na f&aacute;cil o sinalizador detecta que um tripulante pode estar em uma adjacente<br/> em comum com o sinalizador e o pr&oacute;prio tripulante. <br/>
-                        Na dif&iacute;cil, todas as adjacentes ser&atilde;o demarcadas como poss&iacute;vel tripulante. <br/><br/>
+                        1 - Primeiramente escolha a dificuldade que deseja jogar: f&aacute;cil ou dif&iacute;cil. <br/>
+                        Na <b>f&aacute;cil</b>, o sinalizador detecta que um tripulante pode estar em uma adjacente<br/> em comum com o pr&oacute;prio sinalizador e o tripulante. <br/>
+                        Na <b>dif&iacute;cil</b>, todas as adjacentes ser&atilde;o demarcadas<br/> como poss&iacute;vel tripulante. <br/><br/>
                         2 - Clique no bot&atilde;o Reiniciar para que os tripulantes sejam posicionados. <br/><br/>
                         3 - Com o mouse, clique nos espa&ccedil;os que deseja enviar o sinalizador.<br/>
                         Caso lhe informe com um X, n&atilde;o foi encontrado nenhum tripulante.<br/>
-                        Caso seja !, ent&atilde;o algum tripulante est&aacute; nas adjacentes conforme a dificuldade escolhida.<br/> <br/>
+                        Caso seja !, ent&atilde;o algum tripulante est&aacute; nas adjacentes<br/> conforme a dificuldade escolhida.<br/> <br/>
                         4 - Envie sinalizadores at&eacute; encontrar todos os tripulantes perdidos.<br/>
-                        Quando isso acontecer, voc&ecirc; receber&aacute; uma mensagem dizendo que a busca terminou e quantos sinalizadores foram utilizados.<br/><br/>
+                        Quando isso acontecer, voc&ecirc; receber&aacute; uma mensagem dizendo<br/> que a busca terminou e quantos sinalizadores foram utilizados.<br/><br/>
                         5 - Para jogar novamente, clique no bot&atilde;o Reiniciar para resetar o jogo<br/>
                         e ent&atilde;o clique novamente em Reiniciar para posicionar os tripulantes.<br/><br/>
                         Boa busca!!!
